@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+        {% block content %}
+
+<!--<div id="post3" xmlns="http://www.w3.org/1999/html">-->
+<div id="post3">
+            <label class="spoiler1">
+                 <input type="checkbox" class="bo"/>
+                     <div class="title">+ Add Observations</div>
+                     <div class="body">
+                            <div id="add_obs">
+                              <FORM action="http://somesite.com/prog/adduser" method="post">
+                              <!--<P>-->
+                                <LABEL for="text">Date:</LABEL>
+                                <input type="date" name="obsdate"><br>
+                                <LABEL for="text">Description: </LABEL><br>
+                                <!--<INPUT type="text" id="firstname" size=50> <BR>-->
+                                <textarea name=mytextarea id="text" cols=45 rows=10>
+                                    This is a text area example...........
+                                </textarea> <br>
+                                <!--<LABEL for="email">email: </LABEL>-->
+                                <!--<INPUT type="text" width="200" id="email"><BR>-->
+
+                                <LABEL for="file">File: </LABEL>
+                                <input type="file" id="file"><br>
+
+                                <LABEL for="select">Type: </LABEL>
+                                <select id="select">
+                                    <option value="astrometry">Astrometry</option>
+                                     <option value="fometry">Photomery</option>
+                                </select><br>
+                                <p>
+                                    <INPUT type="submit" value="Додати"> <INPUT type="reset">
+                                </p>
+                              <!--</P>-->
+                              </FORM>
+                            </div>
+
+                     </div><!--spoiler-->
+            </label> <!--spoiler-->
+         <!--tra-tat-ta {{ user.username }}-->
+
+        {% for obs in obss %}
+        <div id="obs">
+              <!--<h2>tratata{{ obs.description }}</h2>-->
+                  <div class="date">DateTime: {{ obs.date }}</div>
+                  Description: {{ obs.description }}
+                  <div class="file">File:
+                      <a href={{obs.content.url}} title="download file">
+                        <script type="text/javascript">
+                        var path="{{ obs.content }}";
+                        var res=path.split('/').pop();
+                        document.write( res );
+                        </script>
+                      </a>
+                  <div class="author">Author: {{ obs.user }}</div>
+                  </div>
+        <br>
+        </div>
+        {% empty %}
+        <li>Sorry, no observations in DataBase.</li>
+        {% endfor %}
+
+</div> <!--div post1 -->
+
+        {% endblock %}
+
+    {% block page %}
+        <div id="sidebar">
+                Monthly Archive:<br>
+                {% for line in archive_counts %}
+                  {% if line.isyear %}
+                    {% if not forloop.first %}
+                      <br>
+                    {% endif %}
+                      <a href="/journal/{{ line.year }}">{{ line.year }}</a>({{ line.count }})
+                    <br>
+                    {% else %}
+                    <li>
+                        <a href="/journal/{{ line.yearmonth }}">{{ line.monthname }}</a> ({{ line.count }})<br>
+                    </li>
+                  {% endif %}
+                {% endfor %}
+		</div>
+    {% endblock %}
