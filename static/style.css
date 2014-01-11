@@ -428,9 +428,8 @@ input[type=submit]:active {
 }
 
 /* *******SPOILER******* */
-.spoiler1 {
+/*.spoiler1 {
     display: block;
-    /*background: #2f5585;*/
     text-decoration: none;
     color: #8EA2AD;
     font-weight: bold;
@@ -455,4 +454,4 @@ input[type=submit]:active {
 }
 .spoiler1 > :checked ~ .body {
     display: block;
-}
+}*/

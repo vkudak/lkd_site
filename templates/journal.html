@@ -1,19 +1,17 @@
 {% extends 'base.html' %}
         {% block content %}
-<script src="{{ STATIC_PREFIX }}js/ntime.js"></script>
-<!--<div id="post3" xmlns="http://www.w3.org/1999/html">-->
+<script src="{{ STATIC_PREFIX }}js/lkd_scripts.js"></script>
 <div id="post3">
-            <label class="spoiler1">
-                 <input type="checkbox" class="bo"/>
-                     <div class="title">+ Add Observations</div>
-                     <div class="body">
-                            <div id="add_obs">
+    <a id="show_id" onclick="sp_f1();" class="link" style="cursor: pointer;">[+Add Observation]</a>
+        <span id="spoiler_id" style="display: none">
+            <a onclick="sp_f2();" class="link" style="cursor: pointer;">[Hide Observation window]</a> <br>
+                            <!--<div id="add_obs">-->
                               <FORM action="/journal.html" method="post" enctype="multipart/form-data">{% csrf_token %}
                               <!--<P>-->
                                 <LABEL for="text">DateTime:</LABEL>
                                 <input type="date" name="obs_date">&nbsp;&nbsp;
                                   <input type="time" id='ntime' name="obs_time" value="07:00">
-                                  <label id='now' onclick='ft();'>Now</label>
+                                  <label id='now' onclick='now_time();'>Now</label>
                                   <br>
                                 <LABEL for="text">Description: </LABEL><br>
                                 <textarea name=obs_decs id="text" cols=45
@@ -35,24 +33,21 @@
                                 </p>
                               <!--</P>-->
                               </FORM>
-                            </div>
-
-                     </div><!--spoiler-->
-            </label> <!--spoiler-->
-         <!--tra-tat-ta {{ user.username }}-->
+                            <!--</div>-->
+        </span>
 
         {% for obs in obss %}
         <div id="obs">
-              <!--<h2>tratata{{ obs.description }}</h2>-->
                   <div class="date">DateTime: {{ obs.date }}</div>
-                  Description: {{ obs.description }}
+                  Description: <br>
+                    <div style="margin-left:10px; color: #527881;">
+                        {{ obs.description }}
+                    </div>
                   <div class="file">File:
                       <a href={{obs.content.url}} title="download file">
-                        <script type="text/javascript">
-                        var path="{{ obs.content }}";
-                        var res=path.split('/').pop();
-                        document.write( res );
-                        </script>
+                          <script>
+                            get_name("{{ obs.content }}")
+                          </script>
                       </a>
                   <div class="author">Author: {{ obs.user }}</div>
                   <div class="type">Type: {{ obs.category }}</div>
@@ -60,7 +55,7 @@
         <br>
         </div>
         {% empty %}
-        <li>Sorry, no observations in DataBase.</li>
+            Sorry, no observations in DataBase.
         {% endfor %}
 
 </div> <!--div post1 -->
@@ -78,10 +73,14 @@
                       <a href="/journal/{{ line.year }}">{{ line.year }}</a>({{ line.count }})
                     <br>
                     {% else %}
-                    <li>
+                    <menu>
+                        <li>
                         <a href="/journal/{{ line.yearmonth }}">{{ line.monthname }}</a> ({{ line.count }})<br>
-                    </li>
+                        </li>
+                    </menu>
                   {% endif %}
+                {%empty%}
+                    No data
                 {% endfor %}
 		</div>
     {% endblock %}

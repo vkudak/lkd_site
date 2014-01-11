@@ -32,12 +32,12 @@ def create_archive_data(obss):
     for year in sorted(count.iterkeys(), reverse=True):
         archive_data.append({'isyear': True,
                              'year': year,
-                             'count': count[year],})
+                             'count': count[year], })
         for month in sorted(mcount[year].iterkeys(), reverse=True):
             archive_data.append({'isyear': False,
                                  'yearmonth': '%d/%02d' % (year, month),
                                  'monthname': MONTH_NAMES[month],
-                                 'count': mcount[year][month],})
+                                 'count': mcount[year][month], })
     return archive_data
 
 
@@ -49,11 +49,11 @@ def index(request):
 
 
 def handle_uploaded_file(f, full_path):
-    path, file = os.path.split(full_path)
-    dir = BASE_DIR+MEDIA_URL
-    if not os.path.exists(dir + path):
-        os.makedirs(dir + path)
-    with open(dir + full_path, 'wb+') as destination:
+    path, m_file = os.path.split(full_path)
+    m_dir = BASE_DIR+MEDIA_URL
+    if not os.path.exists(m_dir + path):
+        os.makedirs(m_dir + path)
+    with open(m_dir + full_path, 'wb+') as destination:
         for chunk in f.chunks():
             destination.write(chunk)
 
