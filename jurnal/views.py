@@ -1,9 +1,12 @@
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response
 from jurnal.models import *
 from django.template.context import RequestContext
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
+from lkd_site.settings import BASE_DIR, MEDIA_URL
+import os
 
 
 MONTH_NAMES = ('', 'January', 'Feburary', 'March', 'April', 'May', 'June', 'July',
@@ -45,18 +48,53 @@ def index(request):
         return render_to_response('index.html')
 
 
+def handle_uploaded_file(f, full_path):
+    path, file = os.path.split(full_path)
+    dir = BASE_DIR+MEDIA_URL
+    if not os.path.exists(dir + path):
+        os.makedirs(dir + path)
+    with open(dir + full_path, 'wb+') as destination:
+        for chunk in f.chunks():
+            destination.write(chunk)
+
+
 @login_required
 def journal(request, year=None, month=None):
-    obss = Obs.objects.order_by('-date')
-    if year is not None:
-        obss = obss.filter(date__year=year)
-        if month is not None:
-            obss = obss.filter(date__month=int(month))
+    if request.POST:
+        #TODO ADD Post fields validation!!!
+        obs_date = request.POST.get('obs_date')
+        obs_time = request.POST.get('obs_time')
+        obs_desc = request.POST.get('obs_decs')
+        content = request.FILES['content'].name
+        obs_type = request.POST.get('obs_type')
+        o = Obs()
+        date_time = datetime.strptime(obs_date + ' ' + obs_time, '%Y-%m-%d %H:%M')
+        o.date = date_time
+        o.description = obs_desc
+        o.content = obs_date.replace('-', '/')+'/'+content
+        # print o.content
+        typ = ObsType.objects.all()
+        t = typ.filter(name=obs_type)[0]
+        # print t.name
+        o.category = t
+        o.user = request.user
+        o.save()
+        handle_uploaded_file(request.FILES['content'], str(o.content))
+        obss = Obs.objects.all()
+        return HttpResponseRedirect('journal.html', {'obss': obss, 'user': request.user})
+    else:
+        obss = Obs.objects.order_by('-date')
+        if year is not None:
+            obss = obss.filter(date__year=year)
+            if month is not None:
+                obss = obss.filter(date__month=int(month))
 
-    ar_obs = Obs.objects.all()
-    archive = create_archive_data(ar_obs)
-    return render_to_response('journal.html', {'obss': obss, 'user': request.user,
-                                               'archive_counts': archive})
+        ar_obs = Obs.objects.all()
+        archive = create_archive_data(ar_obs)
+        types = ObsType.objects.all()
+        return render_to_response('journal.html',
+                                  {'obss': obss, 'types': types, 'user': request.user, 'archive_counts': archive},
+                                  context_instance=RequestContext(request))
 
 
 def contact(request):
