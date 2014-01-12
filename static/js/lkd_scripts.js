@@ -26,3 +26,28 @@ function get_name(p)
     var res=p.split('/').pop();
     document.write( res );
 }
+
+function validate_obsForm()
+{
+    var date=document.forms["add_obs"]["obs_date"].value;
+    var desc=document.forms["add_obs"]["obs_desc"].value;
+    var content=document.forms["add_obs"]["content"].value;
+
+    if (date==null || date=="")
+      {
+      alert("Date field must be filled out");
+      return false;
+      }
+
+    if (desc==null || desc=="")
+      {
+      alert("Decsription must be filled out");
+      return false;
+      }
+
+    if (content==null || content=="")
+      {
+      alert("Add some files!");
+      return false;
+      }
+}

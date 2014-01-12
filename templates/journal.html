@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
         {% block content %}
-<script src="{{ STATIC_PREFIX }}js/lkd_scripts.js"></script>
+<script src="{{ STATIC_PREFIX }}js/lkd_scripts.js?v={random number/string}"></script>
 <div id="post3">
     <a id="show_id" onclick="sp_f1();" class="link" style="cursor: pointer;">[+Add Observation]</a>
         <span id="spoiler_id" style="display: none">
             <a onclick="sp_f2();" class="link" style="cursor: pointer;">[Hide Observation window]</a> <br>
                             <!--<div id="add_obs">-->
-                              <FORM action="/journal.html" method="post" enctype="multipart/form-data">{% csrf_token %}
+                              <FORM name="add_obs" action="/journal.html" method="post" enctype="multipart/form-data"
+                                    onsubmit="return validate_obsForm()">{% csrf_token %}
                               <!--<P>-->
                                 <LABEL for="text">DateTime:</LABEL>
                                 <input type="date" name="obs_date">&nbsp;&nbsp;
@@ -14,9 +15,8 @@
                                   <label id='now' onclick='now_time();'>Now</label>
                                   <br>
                                 <LABEL for="text">Description: </LABEL><br>
-                                <textarea name=obs_decs id="text" cols=45
-                                          rows=10>This is a text area example...........
-                                </textarea> <br>
+                                <textarea name="obs_desc" id="text" cols=45
+                                          rows=10></textarea> <br>
                                 <LABEL for="file">File: </LABEL>
                                 <input type="file" name="content" id="file"><br>
 
@@ -38,21 +38,21 @@
 
         {% for obs in obss %}
         <div id="obs">
-                  <div class="date">DateTime: {{ obs.date }}</div>
+                  DateTime:
+                    <samp>{{ obs.date }}</samp><br>
                   Description: <br>
-                    <div style="margin-left:10px; color: #527881;">
-                        {{ obs.description }}
-                    </div>
-                  <div class="file">File:
+                    <samp style="margin-left:10px;">{{ obs.description }}</samp><br>
+                  File:
                       <a href={{obs.content.url}} title="download file">
                           <script>
                             get_name("{{ obs.content }}")
                           </script>
-                      </a>
-                  <div class="author">Author: {{ obs.user }}</div>
-                  <div class="type">Type: {{ obs.category }}</div>
-                  </div>
-        <br>
+                      </a><br>
+                  Author:
+                      <samp>{{ obs.user }}</samp><br>
+                  Type:
+                      <samp>{{ obs.category }}</samp><br>
+                  <br>
         </div>
         {% empty %}
             Sorry, no observations in DataBase.

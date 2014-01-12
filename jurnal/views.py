@@ -61,10 +61,10 @@ def handle_uploaded_file(f, full_path):
 @login_required
 def journal(request, year=None, month=None):
     if request.POST:
-        #TODO ADD Post fields validation!!!
+        # post is validated by javastript = validate_obsForm()
         obs_date = request.POST.get('obs_date')
         obs_time = request.POST.get('obs_time')
-        obs_desc = request.POST.get('obs_decs')
+        obs_desc = request.POST.get('obs_desc')
         content = request.FILES['content'].name
         obs_type = request.POST.get('obs_type')
         o = Obs()

@@ -427,31 +427,7 @@ input[type=submit]:active {
 	width: auto;
 }
 
-/* *******SPOILER******* */
-/*.spoiler1 {
-    display: block;
-    text-decoration: none;
-    color: #8EA2AD;
-    font-weight: bold;
-    border: 1px solid #8EA2AD;
-    border-radius: 5px;
-    padding: 0 5px 0 5px;
-    margin: 10px 0 5px 0;
+samp {
+    color: #527881; 
+    font-family: sans-serif;
 }
-.spoiler1 > .title {
-
-    font-weight: bold;
-}
-.spoiler1 > .body {
-    padding: 4px;
-    font-weight: normal;
-    font-size: 11pt;
-    text-align: justify;
-    display: none;
-}
-.spoiler1 > .bo {
-    display: none;
-}
-.spoiler1 > :checked ~ .body {
-    display: block;
-}*/
