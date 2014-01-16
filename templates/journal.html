@@ -18,7 +18,7 @@
                                 <textarea name="obs_desc" id="text" cols=45
                                           rows=10></textarea> <br>
                                 <LABEL for="file">File: </LABEL>
-                                <input type="file" name="content" id="file"><br>
+                                <input type="file" multiple name="content" id="file"><br>
 
                                 <LABEL for="select">Type: </LABEL>
                                 <select id="select" name="obs_type">
@@ -42,12 +42,14 @@
                     <samp>{{ obs.date }}</samp><br>
                   Description: <br>
                     <samp style="margin-left:10px;">{{ obs.description }}</samp><br>
+                    {% for f in obs.content %}
                   File:
-                      <a href={{obs.content.url}} title="download file">
+                      <a href=Observations/{{f}} title="download file">
                           <script>
-                            get_name("{{ obs.content }}")
+                            get_name("{{f}}")
                           </script>
                       </a><br>
+                    {% endfor %}
                   Author:
                       <samp>{{ obs.user }}</samp><br>
                   Type:
@@ -55,7 +57,7 @@
                   <br>
         </div>
         {% empty %}
-            Sorry, no observations in DataBase.
+            <br>Sorry, no observations in DataBase.
         {% endfor %}
 
 </div> <!--div post1 -->

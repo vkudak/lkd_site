@@ -61,25 +61,32 @@ def handle_uploaded_file(f, full_path):
 @login_required
 def journal(request, year=None, month=None):
     if request.POST:
-        # post is validated by javastript = validate_obsForm()
+        # COMMENT: post is validated by javastript = validate_obsForm()
         obs_date = request.POST.get('obs_date')
         obs_time = request.POST.get('obs_time')
         obs_desc = request.POST.get('obs_desc')
-        content = request.FILES['content'].name
+        content = request.FILES.getlist('content')
         obs_type = request.POST.get('obs_type')
         o = Obs()
         date_time = datetime.strptime(obs_date + ' ' + obs_time, '%Y-%m-%d %H:%M')
         o.date = date_time
         o.description = obs_desc
-        o.content = obs_date.replace('-', '/')+'/'+content
-        # print o.content
+        ddir = obs_date.replace('-', '/')+'/'
+        s = ''
+        for afile in content:
+            s += ddir+afile.name+';'
+            print 'ddir, f.name', ddir, str(afile.name)
+            handle_uploaded_file(afile, ddir+str(afile.name))
+        o.content = s
+        o.content = o.content[:-1]
+        print 'o.content', o.content
         typ = ObsType.objects.all()
         t = typ.filter(name=obs_type)[0]
         # print t.name
         o.category = t
         o.user = request.user
         o.save()
-        handle_uploaded_file(request.FILES['content'], str(o.content))
+        # handle_uploaded_file(request.FILES['content'], str(o.content))
         obss = Obs.objects.all()
         return HttpResponseRedirect('journal.html', {'obss': obss, 'user': request.user})
     else:

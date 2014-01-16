@@ -8,7 +8,7 @@ class ObsAdmin(admin.ModelAdmin):
     #    (None,               {'fields': ['question']}),
     #    ('Date information', {'fields': ['pub_date'], 'classes': ['collapse']}),
     #]
-    list_display = ('date', 'category', 'user', 'content')
+    list_display = ('date', 'category', 'user', 'content')  # , 'content'
     list_filter = ['date', 'category', 'user']
     search_fields = ['date']
     date_hierarchy = 'date'
