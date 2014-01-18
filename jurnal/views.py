@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from datetime import datetime
-from lkd_site.settings import BASE_DIR, MEDIA_URL
+from lkd_site.settings import *
 import os
 
 
