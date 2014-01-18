@@ -86,7 +86,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
@@ -106,15 +106,3 @@ MEDIA_ROOT = '/home/vkudak/python/Django/lkd_site/Observations'
 MEDIA_URL = '/Observations/'
 # '/Files/'
 LOGIN_URL = '/auth.html'
-
-### ---- tinyMCE ----####
-TINYMCE_JS_URL = os.path.join(STATIC_URL, 'js/tiny_mce/tiny_mce.js')
-TINYMCE_JS_ROOT = os.path.join(STATIC_URL, "js/tiny_mce")
-TINYMCE_DEFAULT_CONFIG = {
-    'plugins': "table, paste, searchreplace",
-    'theme': "advanced",
-    # 'cleanup_on_startup': True,
-    'custom_undo_redo_levels': 10,
-}
-TINYMCE_SPELLCHECKER = False
-TINYMCE_COMPRESSOR = False
