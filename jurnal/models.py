@@ -52,9 +52,13 @@ class ObsType(models.Model):
 
 class Obs(models.Model):
     date = models.DateTimeField(auto_now_add=False, verbose_name='Дата створення')
+
     description = models.TextField(verbose_name='Опис')
+    #description = HTMLField(blank=True, verbose_name='Опис')
+
     # content = models.FileField(verbose_name='Файл', upload_to=get_upload_to)
-    content = SeparatedValuesField()
+    content = SeparatedValuesField(verbose_name='Файли')
+
     category = models.ForeignKey(ObsType, related_name='Тип', verbose_name='Тип')
     user = models.ForeignKey(User, verbose_name='Користувач')
 

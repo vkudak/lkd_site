@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'jurnal',
+    'tinymce',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -105,3 +106,15 @@ MEDIA_ROOT = '/home/vkudak/python/Django/lkd_site/Observations'
 MEDIA_URL = '/Observations/'
 # '/Files/'
 LOGIN_URL = '/auth.html'
+
+### ---- tinyMCE ----####
+TINYMCE_JS_URL = os.path.join(STATIC_URL, 'js/tiny_mce/tiny_mce.js')
+TINYMCE_JS_ROOT = os.path.join(STATIC_URL, "js/tiny_mce")
+TINYMCE_DEFAULT_CONFIG = {
+    'plugins': "table, paste, searchreplace",
+    'theme': "advanced",
+    # 'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 10,
+}
+TINYMCE_SPELLCHECKER = False
+TINYMCE_COMPRESSOR = False

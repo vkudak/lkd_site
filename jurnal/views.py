@@ -75,11 +75,10 @@ def journal(request, year=None, month=None):
         s = ''
         for afile in content:
             s += ddir+afile.name+';'
-            print 'ddir, f.name', ddir, str(afile.name)
+            # print 'ddir, f.name', ddir, str(afile.name)
             handle_uploaded_file(afile, ddir+str(afile.name))
         o.content = s
         o.content = o.content[:-1]
-        print 'o.content', o.content
         typ = ObsType.objects.all()
         t = typ.filter(name=obs_type)[0]
         # print t.name

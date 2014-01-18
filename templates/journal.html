@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
         {% block content %}
 <script src="{{ STATIC_PREFIX }}js/lkd_scripts.js?v={random number/string}"></script>
+
 <div id="post3">
     <a id="show_id" onclick="sp_f1();" class="link" style="cursor: pointer;">[+Add Observation]</a>
         <span id="spoiler_id" style="display: none">
@@ -15,8 +16,7 @@
                                   <label id='now' onclick='now_time();'>Now</label>
                                   <br>
                                 <LABEL for="text">Description: </LABEL><br>
-                                <textarea name="obs_desc" id="text" cols=45
-                                          rows=10></textarea> <br>
+                                <textarea name="obs_desc" id="text" cols=45 rows=10></textarea><br>
                                 <LABEL for="file">File: </LABEL>
                                 <input type="file" multiple name="content" id="file"><br>
 
@@ -35,13 +35,16 @@
                               </FORM>
                             <!--</div>-->
         </span>
+        <hr size="1" color="#8EA2AD">
+            <!--color="#CC7F5C">-->
 
         {% for obs in obss %}
         <div id="obs">
                   DateTime:
                     <samp>{{ obs.date }}</samp><br>
                   Description: <br>
-                    <samp style="margin-left:10px;">{{ obs.description }}</samp><br>
+                    <samp style="margin-left:10px;">
+                        {{ obs.description }}</samp><br>
                     {% for f in obs.content %}
                   File:
                       <a href=Observations/{{f}} title="download file">
@@ -50,11 +53,13 @@
                           </script>
                       </a><br>
                     {% endfor %}
-                  Author:
-                      <samp>{{ obs.user }}</samp><br>
+                  <!--Author:-->
+                      <!--<samp>{{ obs.user }}</samp><br>-->
                   Type:
-                      <samp>{{ obs.category }}</samp><br>
-                  <br>
+                      <samp>{{ obs.category }}</samp>&nbsp;&nbsp;
+                              Author:
+                      <samp>{{ obs.user }}</samp>
+            <hr size="1" color="#8EA2AD">
         </div>
         {% empty %}
             <br>Sorry, no observations in DataBase.

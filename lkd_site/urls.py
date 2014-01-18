@@ -1,5 +1,4 @@
 from django.conf.urls import patterns, include, url
-
 from django.contrib import admin
 admin.autodiscover()
 from jurnal.views import *
@@ -18,7 +17,6 @@ urlpatterns = patterns(
 
     url(r'^journal/(?P<year>\d{4})/$', journal, name='journal'),
     url(r'^journal/(?P<year>\d{4})/(?P<month>\d{2})/$', journal, name='journal'),
-
 
     url(r'^auth.html$', auth),
     url(r'^logout.html$', logx),

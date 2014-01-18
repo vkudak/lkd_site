@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from jurnal.models import Obs, ObsType
 
 
@@ -16,6 +15,7 @@ class ObsAdmin(admin.ModelAdmin):
 
 class ObsTypeAdmin(admin.ModelAdmin):
     list_display = ('name',)
+
 
 admin.site.register(Obs, ObsAdmin)
 admin.site.register(ObsType, ObsTypeAdmin)

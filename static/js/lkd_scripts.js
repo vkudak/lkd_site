@@ -31,6 +31,7 @@ function validate_obsForm()
 {
     var date=document.forms["add_obs"]["obs_date"].value;
     var desc=document.forms["add_obs"]["obs_desc"].value;
+    //var desc = tinymce.get('obs_desc').getContent();
     var content=document.forms["add_obs"]["content"].value;
 
     if (date==null || date=="")
