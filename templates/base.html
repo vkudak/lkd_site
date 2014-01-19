@@ -20,6 +20,8 @@ Released   : 20120205
 {% get_static_prefix as STATIC_PREFIX %}
     <!--  ?v={random number/string}   to add random number and update cache-->
     <link rel="stylesheet" type="text/css" href="{{ STATIC_PREFIX }}style.css?v={random number/string}" />
+    <link rel="shortcut icon" href="{{ STATIC_PREFIX }}favicon.ico" type="image/x-icon">
+    <!--<link rel="icon" type="image/ico" href="{{STATIC_PREFIX}}favicon.ico">-->
 </head>
 
 <body>
