@@ -39,7 +39,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'jurnal',
-    'tinymce',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -94,14 +93,19 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 
+# PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+# PROJECT_ROOT = PROJECT_ROOT.rsplit('/', 1)[0]
+# STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static/')
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static"),
 )
 
 TEMPLATE_DIRS = [os.path.join(BASE_DIR, 'templates')]
 
-MEDIA_ROOT = '/home/vkudak/python/Django/lkd_site/Observations'
-#os.path.join(BASE_DIR, '/Observations')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'Observations')
+#'/home/vkudak/python/Django/lkd_site/Observations'
+#os.path.join(BASE_DIR, 'Observations')
 
 MEDIA_URL = '/Observations/'
 # '/Files/'
